@@ -11,7 +11,7 @@ const port = 8080;
 app.get('/', async (req, res) => {
   const channelName = req.query.name as string;
   const ID = await new Promise((resolve) => {
-    https.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&eventType=live&q=${channelName?.split(' ').join('%20')}&key=${KEY}`, (resp) => {
+    https.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&eventType=live&q=${channelName?.split(' ').join('%20')}&type=video&key=${KEY}`, (resp) => {
       let data = '';
 
       resp.on('data', (chunk) => {
