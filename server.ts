@@ -19,7 +19,7 @@ app.get('/', async (req, res) => {
       });
 
       resp.on('end', () => {
-        const liveID = JSON.parse(data)?.items[1]?.id?.videoId ?? 'No live stream found';
+        const liveID = JSON.parse(data)?.items[0]?.id?.videoId ?? 'No live stream found';
         resolve(liveID);
       });
     });
