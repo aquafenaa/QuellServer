@@ -1,7 +1,9 @@
 import express from 'express';
 import https from 'https';
 
-require('dotenv').config();
+import path from 'node:path';
+
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const KEY = process.env.API_KEY;
 const app = express();
@@ -20,7 +22,14 @@ app.get('/', async (req, res) => {
 
       resp.on('end', () => {
         const liveID = JSON.parse(data)?.items[0]?.id?.videoId ?? 'No live stream found';
-        resolve(liveID);
+
+        const response = {
+          status: resp.statusCode,
+          headers: resp.headers,
+          body: liveID,
+        };
+
+        resolve(JSON.stringify(response));
       });
     });
   });
